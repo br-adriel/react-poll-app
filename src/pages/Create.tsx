@@ -4,6 +4,7 @@ import Card from '../components/Card';
 import Container from '../components/Container';
 import FieldWrapper from '../components/FieldWrapper';
 import Input from '../components/Input';
+import LogoHomeLink from '../components/LogoHomeLink';
 import OptionsInput from '../components/OptionsInput';
 
 export default function Create() {
@@ -18,7 +19,7 @@ export default function Create() {
   return (
     <main className='bg-pink-100'>
       <Container>
-        <h1 className='text-7xl italic font-bold'>VotAí!</h1>
+        <LogoHomeLink />
         <Card className='w-full sm:w-2/3 md:w-3/5 lg:w-2/5 xl:w-3/12'>
           <h2 className='text-xl font-bold my-2 text-center'>Criar enquete</h2>
           <form className='flex flex-col gap-2' onSubmit={formSubmit}>

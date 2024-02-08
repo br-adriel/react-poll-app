@@ -1,6 +1,11 @@
+import { useEffect } from 'react';
 import CardLink from '../components/CardLink';
 
 export default function Home() {
+  useEffect(() => {
+    document.title = 'VotAí!';
+  }, []);
+
   return (
     <main className='bg-pink-100'>
       <div className='container mx-auto min-h-dvh p-6 flex justify-center items-center flex-col gap-5'>

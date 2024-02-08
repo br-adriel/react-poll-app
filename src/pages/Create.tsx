@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import Button from '../components/Button';
 import Card from '../components/Card';
 import FieldWrapper from '../components/FieldWrapper';
@@ -9,6 +9,10 @@ export default function Create() {
   const [options, setOptions] = useState<string[]>([]);
 
   const formSubmit = (e: FormEvent<HTMLFormElement>) => e.preventDefault();
+
+  useEffect(() => {
+    document.title = 'Criar enquete - VotAí!';
+  }, []);
 
   return (
     <main className='bg-pink-100'>

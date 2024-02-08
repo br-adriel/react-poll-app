@@ -39,16 +39,21 @@ export default function OptionsInput({
 
   return (
     <div className='flex flex-col gap-1'>
-      <div className='flex gap-1'>
+      <div className='flex gap-1 max-w-full flex-wrap sm:flex-nowrap justify-stretch'>
         <Input
           id={id}
-          className='flex-grow'
+          className='flex-grow max-w-full'
           value={inputValue}
           onChange={(e) => setInputValue((e.target as HTMLInputElement).value)}
           onKeyDown={enterOnInput}
           required={required && options.length == 0}
         />
-        <Button onClick={addOption} type='button' title='Adicionar'>
+        <Button
+          onClick={addOption}
+          type='button'
+          title='Adicionar'
+          className='ml-auto'
+        >
           <BiPlus />
         </Button>
       </div>

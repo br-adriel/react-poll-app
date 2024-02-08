@@ -22,7 +22,7 @@ export default function Create() {
               <Input type='text' name='title' id='title' required />
             </FieldWrapper>
             <FieldWrapper>
-              <label htmlFor='options'>Opções:</label>
+              <label htmlFor='options'>Opções de resposta:</label>
               <OptionsInput
                 id='options'
                 options={options}

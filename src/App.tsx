@@ -1,8 +1,16 @@
-import { RouterProvider } from 'react-router-dom';
-import { router } from './routes';
+import { Outlet } from 'react-router-dom';
+import Container from './components/Container';
+import LogoHomeLink from './components/LogoHomeLink';
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <main className='bg-pink-100'>
+      <Container>
+        <LogoHomeLink />
+        <Outlet />
+      </Container>
+    </main>
+  );
 }
 
 export default App;

@@ -1,5 +1,4 @@
 import createPoll from './createPoll';
+import getPoll from './getPoll';
 
-export default class PollService {
-  static create = createPoll;
-}
+export { createPoll, getPoll };

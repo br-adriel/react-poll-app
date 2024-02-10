@@ -4,7 +4,7 @@ import CreatePollForm from '../components/CreatePollForm';
 import Loading from '../components/Loading';
 import PollCreatedCard from '../components/PollCreatedCard';
 import { PollData } from '../interfaces/Poll';
-import PollService from '../services/poll';
+import { createPoll } from '../services/poll';
 
 export default function Create() {
   const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +25,7 @@ export default function Create() {
       options,
       title,
     };
-    const res = await PollService.create({ data });
+    const res = await createPoll({ data });
     setPollId(res);
 
     if (pollId) {

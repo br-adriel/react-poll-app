@@ -7,7 +7,7 @@ interface IProps {
 }
 
 export default function PollCreatedCard({ pollId }: IProps) {
-  const relPollPageLink = `/vote/${pollId}`;
+  const relPollPageLink = `/poll/${pollId}/vote`;
   const absPollPageLink = `${import.meta.env.VITE_SITE_URL}${relPollPageLink}`;
 
   const copyLink = () => {

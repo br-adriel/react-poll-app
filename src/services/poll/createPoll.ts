@@ -10,7 +10,6 @@ interface createPollArgs {
  * Create a new poll.
  *
  * @param {Object} param0 - The parameters for creating the poll.
- *
  * @param {PollData} param0.data - The data necessary to create the poll.
  *
  * @returns {Promise<string|undefined>} - The unique identifier (pollId) of

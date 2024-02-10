@@ -3,6 +3,7 @@ import App from '../App';
 import Create from '../pages/Create';
 import Home from '../pages/Home';
 import Poll from '../pages/Poll';
+import Vote from '../pages/Vote';
 
 const routes: RouteObject[] = [
   {
@@ -20,6 +21,10 @@ const routes: RouteObject[] = [
       {
         path: '/poll',
         element: <Poll />,
+      },
+      {
+        path: '/poll/:pollId/vote',
+        element: <Vote />,
       },
     ],
   },

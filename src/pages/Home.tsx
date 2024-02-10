@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div className='flex gap-3 flex-col w-[480px] max-w-full'>
       <CardLink to='/create'>Criar uma enquete</CardLink>
-      <CardLink to='/vote'>Votar em uma enquete</CardLink>
+      <CardLink to='/poll'>Votar em uma enquete</CardLink>
     </div>
   );
 }

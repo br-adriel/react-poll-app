@@ -16,12 +16,15 @@ export default function Vote() {
   const [isLoading, setIsLoading] = useState(true);
 
   const loadPollData = async () => {
+    document.title = 'Enquete - VotAí';
+
     setIsLoading(true);
     if (pollId) {
       const fetchedPoll = await getPoll({ id: pollId });
 
       if (fetchedPoll) {
         const scores: number[] = fetchedPoll.options.map((opt) => opt.score);
+        document.title = `Enquete: ${fetchedPoll.title} - VotAí!`;
 
         setPoll(fetchedPoll);
         setTotalVotes(scores.reduce((a, b) => a + b, 0));
@@ -34,10 +37,6 @@ export default function Vote() {
   useEffect(() => {
     loadPollData();
   }, [pollId]);
-
-  useEffect(() => {
-    document.title = 'Enquete - VotAí';
-  }, []);
 
   if (isLoading) return <CirclePulse />;
   if (!poll) return <PollNotFound />;

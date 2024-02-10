@@ -1,7 +1,8 @@
 import { RouteObject, createBrowserRouter } from 'react-router-dom';
-import Home from '../pages/Home';
-import Create from '../pages/Create';
 import App from '../App';
+import Create from '../pages/Create';
+import Home from '../pages/Home';
+import Poll from '../pages/Poll';
 
 const routes: RouteObject[] = [
   {
@@ -15,6 +16,10 @@ const routes: RouteObject[] = [
       {
         path: '/create',
         element: <Create />,
+      },
+      {
+        path: '/poll',
+        element: <Poll />,
       },
     ],
   },

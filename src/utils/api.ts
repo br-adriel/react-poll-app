@@ -21,11 +21,11 @@ export function handleError({
   if (toastId) {
     toast.update(toastId, {
       ...options,
-      render: defaultMessage,
+      render: message,
       type: 'error',
       isLoading: false,
     });
     return;
   }
-  toast.error(defaultMessage);
+  toast.error(message);
 }

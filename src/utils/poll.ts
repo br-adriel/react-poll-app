@@ -19,3 +19,7 @@ export function updateStateWithVotes({
   });
   return newState;
 }
+
+export function calculateScores(poll: Poll): number[] {
+  return poll.options.map((opt) => opt.score);
+}

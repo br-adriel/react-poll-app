@@ -1,4 +1,5 @@
 import createPoll from './createPoll';
 import getPoll from './getPoll';
+import voteOnPoll from './voteOnPoll';
 
-export { createPoll, getPoll };
+export { createPoll, getPoll, voteOnPoll };

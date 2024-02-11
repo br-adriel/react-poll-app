@@ -1,6 +1,7 @@
 import { Id, toast } from 'react-toastify';
 import { api } from '../../lib/axios';
 import { handleError } from '../../utils/api';
+import { options } from '../../lib/toastify';
 
 interface voteOnPollArgs {
   pollId: string;
@@ -27,10 +28,10 @@ export default async function voteOnPoll({
     toastId = toast.loading('Registrando voto...');
     await api.post(`/polls/${pollId}/votes`, { pollOptionId });
     toast.update(toastId, {
+      ...options,
       type: 'success',
       render: 'Voto registrado!',
       isLoading: false,
-      autoClose: 5000,
     });
   } catch (error) {
     const defaultMessage = 'Voto não registrado, tente novamente mais tarde';

@@ -1,4 +1,5 @@
 import { Id, toast } from 'react-toastify';
+import { options } from '../lib/toastify';
 
 interface handleErrorArgs {
   error: any;
@@ -19,10 +20,10 @@ export function handleError({
 
   if (toastId) {
     toast.update(toastId, {
+      ...options,
       render: defaultMessage,
       type: 'error',
       isLoading: false,
-      autoClose: 5000,
     });
     return;
   }

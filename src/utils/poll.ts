@@ -23,3 +23,8 @@ export function updateStateWithVotes({
 export function calculateScores(poll: Poll): number[] {
   return poll.options.map((opt) => opt.score);
 }
+
+export function calculateTotalVotes(poll: Poll, scores?: number[]): number {
+  const sc = scores || calculateScores(poll);
+  return sc.reduce((a, b) => a + b, 0);
+}

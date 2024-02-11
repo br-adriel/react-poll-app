@@ -28,3 +28,8 @@ export function calculateTotalVotes(poll: Poll, scores?: number[]): number {
   const sc = scores || calculateScores(poll);
   return sc.reduce((a, b) => a + b, 0);
 }
+
+export function calculateMaxVotes(poll: Poll, scores?: number[]): number {
+  const sc = scores || calculateScores(poll);
+  return Math.max(...sc);
+}

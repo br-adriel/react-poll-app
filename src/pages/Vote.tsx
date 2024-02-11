@@ -5,7 +5,7 @@ import CirclePulse from '../components/CirclePulse';
 import PollNotFound from '../components/PollNotFound';
 import VoteButton from '../components/VoteButton';
 import { Poll } from '../interfaces/Poll';
-import { getPoll } from '../services/poll';
+import { getPoll, voteOnPoll } from '../services/poll';
 
 export default function Vote() {
   const { pollId } = useParams();
@@ -14,6 +14,12 @@ export default function Vote() {
   const [totalVotes, setTotalVotes] = useState(0);
   const [maxVotes, setMaxVotes] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+
+  const vote = async (optionId: string) => {
+    if (pollId) {
+      voteOnPoll({ pollId, pollOptionId: optionId });
+    }
+  };
 
   const loadPollData = async () => {
     document.title = 'Enquete - VotAí';
@@ -50,7 +56,12 @@ export default function Vote() {
       <div className='flex flex-col gap-1'>
         {poll.options.map((option) => {
           return (
-            <VoteButton maxVotes={maxVotes} option={option} key={option.id} />
+            <VoteButton
+              maxVotes={maxVotes}
+              option={option}
+              key={option.id}
+              onClick={vote}
+            />
           );
         })}
       </div>

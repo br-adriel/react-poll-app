@@ -7,13 +7,12 @@ import PollNotFound from '../components/PollNotFound';
 import VoteButton from '../components/VoteButton';
 import { Poll } from '../interfaces/Poll';
 import { getPoll, trackVotes, voteOnPoll } from '../services/poll';
+import { TrackVotesResponse } from '../services/poll/trackVotes';
 import {
   calculateMaxVotes,
-  calculateScores,
   calculateTotalVotes,
   updateStateWithVotes,
 } from '../utils/poll';
-import { TrackVotesResponse } from '../services/poll/trackVotes';
 
 export default function Vote() {
   const { pollId } = useParams();
@@ -24,27 +23,21 @@ export default function Vote() {
   const [isLoading, setIsLoading] = useState(true);
 
   const vote = async (optionId: string) => {
-    if (pollId) {
-      voteOnPoll({ pollId, pollOptionId: optionId });
-    }
+    if (pollId) voteOnPoll({ pollId, pollOptionId: optionId });
   };
 
   const computePollRelatedStates = (poll: Poll) => {
-    const scores = calculateScores(poll);
-    setTotalVotes(calculateTotalVotes(poll, scores));
-    setMaxVotes(calculateMaxVotes(poll, scores));
-  };
-
-  const updatePollRelatedStates = () => {
-    if (poll) computePollRelatedStates(poll);
+    setTotalVotes(calculateTotalVotes(poll));
+    setMaxVotes(calculateMaxVotes(poll));
   };
 
   const onMessage = (e: MessageEvent<string>) => {
     const response: TrackVotesResponse = JSON.parse(e.data);
     setPoll((prev) => {
-      return updateStateWithVotes({ prev, updatedVotes: response });
+      const newPoll = updateStateWithVotes({ prev, updatedVotes: response });
+      if (newPoll) computePollRelatedStates(newPoll);
+      return newPoll;
     });
-    updatePollRelatedStates();
   };
 
   if (pollId) {

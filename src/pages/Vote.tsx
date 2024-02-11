@@ -1,11 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import useWebSocket from 'react-use-websocket';
 import Card from '../components/Card';
 import CirclePulse from '../components/CirclePulse';
 import PollNotFound from '../components/PollNotFound';
 import VoteButton from '../components/VoteButton';
 import { Poll } from '../interfaces/Poll';
-import { getPoll, voteOnPoll } from '../services/poll';
+import { getPoll, trackVotes, voteOnPoll } from '../services/poll';
+import {
+  calculateMaxVotes,
+  calculateScores,
+  calculateTotalVotes,
+  updateStateWithVotes,
+} from '../utils/poll';
+import { TrackVotesResponse } from '../services/poll/trackVotes';
 
 export default function Vote() {
   const { pollId } = useParams();
@@ -21,6 +29,29 @@ export default function Vote() {
     }
   };
 
+  const computePollRelatedStates = (poll: Poll) => {
+    const scores = calculateScores(poll);
+    setTotalVotes(calculateTotalVotes(poll, scores));
+    setMaxVotes(calculateMaxVotes(poll, scores));
+  };
+
+  const updatePollRelatedStates = () => {
+    if (poll) computePollRelatedStates(poll);
+  };
+
+  const onMessage = (e: MessageEvent<string>) => {
+    const response: TrackVotesResponse = JSON.parse(e.data);
+    setPoll((prev) => {
+      return updateStateWithVotes({ prev, updatedVotes: response });
+    });
+    updatePollRelatedStates();
+  };
+
+  if (pollId) {
+    const { options, url } = trackVotes({ pollId, onMessage });
+    useWebSocket(url, options);
+  }
+
   const loadPollData = async () => {
     document.title = 'Enquete - VotAí';
 
@@ -29,12 +60,10 @@ export default function Vote() {
       const fetchedPoll = await getPoll({ id: pollId });
 
       if (fetchedPoll) {
-        const scores: number[] = fetchedPoll.options.map((opt) => opt.score);
-        document.title = `Enquete: ${fetchedPoll.title} - VotAí!`;
-
         setPoll(fetchedPoll);
-        setTotalVotes(scores.reduce((a, b) => a + b, 0));
-        setMaxVotes(Math.max(...scores));
+        computePollRelatedStates(fetchedPoll);
+
+        document.title = `Enquete: ${fetchedPoll.title} - VotAí!`;
       }
     }
     setIsLoading(false);

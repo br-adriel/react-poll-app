@@ -1,6 +1,7 @@
 import { RouteObject, createBrowserRouter } from 'react-router-dom';
 import App from '../App';
 import Create from '../pages/Create';
+import Error from '../pages/Error';
 import Home from '../pages/Home';
 import Poll from '../pages/Poll';
 import Vote from '../pages/Vote';
@@ -9,6 +10,7 @@ const routes: RouteObject[] = [
   {
     path: '/',
     element: <App />,
+    errorElement: <Error />,
     children: [
       {
         path: '',
